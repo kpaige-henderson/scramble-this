@@ -1,26 +1,55 @@
 
 var generateBtn = document.querySelector("#generate");
 
-//var alpha = "abcdefghijklmnopqrstuvwxyz"
-//var caps = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-//var numbers = "1234567890"
-//var special = "!@#$%^&*?"
+var alpha = "abcdefghijklmnopqrstuvwxyz"
+var caps = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+var numbers = "1234567890"
+var special = "!@#$%^&*?"
 
 //assignment Code
-var options = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*?"
 var createThings = ""
-var number = 10;
+var possibleCharacters = ""
 
-//generates the password at random
-function generatePassword(length) {
-for (var i = 0; i <= length; i++) {
-    var scramble = Math.floor(Math.random() * options.length);
-    //createThings += options.toString(scramble);
-    createThings += scramble;
+
+//generates the password at random with prompt boxes
+function generatePassword() {
+  var passwordLength = prompt("How long would you like your password?")
+  console.log (passwordLength)
+if (isNaN(passwordLength)) {
+  alert("Please provide a valid number")
+  return ""
+}
+  var includeUppercase = confirm("Would you like to include uppercase letters?")
+  console.log (includeUppercase)
+  var includeLowercase = confirm("Would you like to include lowercase letters?")
+  console.log (includeLowercase)
+  var includeNumbers = confirm("Would you like to include numbers?")
+  console.log (includeNumbers)
+  var includeSpecial = confirm("Would you like to include Special characters?")
+  console.log (includeSpecial)
+if (includeUppercase) {
+  possibleCharacters += alpha
+}
+
+if (includeLowercase) {
+  possibleCharacters += caps
+}
+
+if (includeNumbers) {
+  possibleCharacters += numbers
+}
+
+if (includeSpecial) {
+  possibleCharacters += special
+}
+
+for (var i = 0; i <= passwordLength; i++) {
+    var scramble = Math.floor(Math.random() * possibleCharacters.length);
+    createThings += possibleCharacters[scramble];
 
 } 
 
-  return options;
+  return createThings;
 
 }
 
@@ -28,8 +57,7 @@ for (var i = 0; i <= length; i++) {
 //password to the #password input
 function writePassword() {
   var passwordText = document.querySelector("#password");
-  var passwordLength = 10;
-  passwordText.value = generatePassword(passwordLength);
+  passwordText.value = generatePassword();
 }
 
 
